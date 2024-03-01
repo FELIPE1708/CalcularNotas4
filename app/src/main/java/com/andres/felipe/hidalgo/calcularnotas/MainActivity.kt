@@ -16,8 +16,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var siguienteNota: Button
     private lateinit var Finalizar: Button
     private lateinit var progreso: ProgressBar
-    private lateinit var salidaNota: TextView
-    private lateinit var salidaPorcentaje: TextView
+    private lateinit var vistaNotaFinal: TextView
+    private lateinit var vistaPromedioFinal: TextView
 
     private var porcentajeAcumulado = 0
     //
@@ -36,12 +36,14 @@ class MainActivity : AppCompatActivity() {
         siguienteNota = findViewById(R.id.siguiente_nota)
         Finalizar = findViewById(R.id.Finalizar)
         progreso = findViewById(R.id.progressBar)
-        salidaNota = findViewById(R.id.salidaNota)
-        salidaPorcentaje = findViewById(R.id.salidaPorcentaje)
+        vistaNotaFinal = findViewById(R.id.vistaNotaFinal)
+        vistaPromedioFinal = findViewById(R.id.vistaPromedioFinal)
 
         Finalizar.setOnClickListener(){
 
-            salidaNota.text = "nota final : " + calcularPromedio()
+            vistaNotaFinal.text = "nota final : " + notaFinal()
+
+            vistaPromedioFinal.text = "promedio: " + calcularPromedio()
         }
 
         siguienteNota.setOnClickListener {
@@ -116,6 +118,17 @@ class MainActivity : AppCompatActivity() {
             p += n
         }
         return p / listaDeNotas.size
+    }
+
+    fun notaFinal(): Double{
+        var notaFinal : Double = 0.0
+        var contador = 0
+
+        for (n in listaDeNotas){
+            notaFinal += (n * listaDeNotas[contador]) / 100
+            contador ++
+        }
+        return notaFinal
     }
 }
 
